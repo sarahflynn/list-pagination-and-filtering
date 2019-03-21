@@ -126,3 +126,7 @@ body {
   color: #4ba6c3;
   margin: 5px;
 }
+
+.search-container {
+  display: block;
+}

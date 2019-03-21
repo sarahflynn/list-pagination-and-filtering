@@ -2,6 +2,7 @@
 const students = document.querySelectorAll('.student-item');
 const paginationContainer = document.querySelector('.pagination-container');
 const messageContainer = document.querySelector('.message-container');
+const searchContainer = document.querySelector('.search-container');
 
 let prevActivePageNum;
 
@@ -12,7 +13,6 @@ function showPage(pageNumber) {
   const prevActivePage = document.querySelector(
     `.page-link-${prevActivePageNum}`
   );
-  console.log(activePage);
   if (activePage) {
     activePage.classList.add('active');
     prevActivePage.classList.remove('active');
@@ -48,7 +48,6 @@ function appendPageLinks() {
 
   message.textContent = messageText;
   messageContainer.appendChild(message);
-  console.log('messageText', messageContainer);
 
   const numberOfPages = Math.ceil(students.length / 10);
   let html = '';
@@ -69,8 +68,50 @@ function appendPageLinks() {
   paginationContainer.appendChild(pageNav);
 }
 
+function appendSearch() {
+  const form = document.createElement('form');
+  form.setAttribute('onsubmit', 'return search(event)');
+  form.setAttribute('id', 'search-form');
+
+  const searchInput = document.createElement('input');
+  searchInput.setAttribute('type', 'text');
+
+  const searchButton = document.createElement('input');
+  searchInput.setAttribute('type', 'submit');
+  searchButton.innerText = 'Search';
+  // searchButton.addEventListener('click', (event) => {
+  //   event.preventDefault();
+  //   search();
+  // })
+
+  searchContainer.appendChild(form);
+  form.appendChild(searchButton);
+  form.appendChild(searchInput);
+}
+
+function search() {
+  event.preventDefault();
+  const searchForm = document.getElementById('search-form');
+  const keyword = searchForm.elements[0].value.toLowerCase();
+
+  for (let i = 0; i < students.length; i++) {
+    let name = students[i].childNodes[1].childNodes[3].childNodes[0].textContent;
+    
+    if (name.indexOf(keyword) !== -1) {
+      students[i].classList.add('visible');
+      students[i].classList.remove('hidden');
+    } else {
+      students[i].classList.remove('visible');
+      students[i].classList.add('hidden');
+    }
+  }
+  
+  return;
+}
+
 // call showPage() and appendPageLinks() on page load, default to page 1
 window.onload = () => {
+  appendSearch();
   showPage(1);
   appendPageLinks();
 };
