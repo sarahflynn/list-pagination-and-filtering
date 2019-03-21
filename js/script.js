@@ -68,6 +68,7 @@ function appendPageLinks() {
   paginationContainer.appendChild(pageNav);
 }
 
+// create student search form
 function appendSearch() {
   const form = document.createElement('form');
   form.setAttribute('onsubmit', 'return search(event)');
@@ -79,16 +80,13 @@ function appendSearch() {
   const searchButton = document.createElement('input');
   searchInput.setAttribute('type', 'submit');
   searchButton.innerText = 'Search';
-  // searchButton.addEventListener('click', (event) => {
-  //   event.preventDefault();
-  //   search();
-  // })
 
   searchContainer.appendChild(form);
   form.appendChild(searchButton);
   form.appendChild(searchInput);
 }
 
+// searches for partial or complete name matches in response to form submit event
 function search() {
   event.preventDefault();
   const searchForm = document.getElementById('search-form');
@@ -105,7 +103,7 @@ function search() {
       students[i].classList.add('hidden');
     }
   }
-  
+
   return;
 }
 
