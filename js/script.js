@@ -9,6 +9,7 @@ let prevActivePageNum;
 // add and remove classes to toggle student visibility
 function showPage(pageNumber) {
   const firstStudentIndex = pageNumber * 10 - 10;
+
   const activePage = document.querySelector(`.page-link-${pageNumber}`);
   const prevActivePage = document.querySelector(
     `.page-link-${prevActivePageNum}`
